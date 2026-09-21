@@ -5,6 +5,8 @@ import { getService, services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { Photo, SectionPhoto, photoUrl } from '@/components/Photo';
 import { getImage } from '@/data/images';
+import { BeforeAfterSlider } from '@/components/BeforeAfter';
+import { getBeforeAfterPair } from '@/data/beforeAfter';
 import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { photoOg } from '@/components/Photo';
 import { site } from '@/lib/site';
@@ -59,6 +61,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   if (!service) notFound();
 
   const image = getImage(service.image);
+  const heroPair = service.beforeAfter ? getBeforeAfterPair(service.beforeAfter) : undefined;
   // Slots in scripts/image-kit/images.json drop the "-london" suffix.
   // service.image ('steam', 'dry', …) doubles as the image kit's slot prefix.
   const slot = `${service.image}-hero`;
@@ -101,13 +104,19 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
                 {service.summary}
               </p>
 
-              <div className="mt-7 overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Photo
-                  slot={slot}
-                  fallback={service.image}
-                  priority
-                  sizes="(min-width: 1024px) 620px, 100vw"
-                />
+              <div className="mt-7">
+                {heroPair ? (
+                  <BeforeAfterSlider pair={heroPair} priority />
+                ) : (
+                  <div className="overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
+                    <Photo
+                      slot={slot}
+                      fallback={service.image}
+                      priority
+                      sizes="(min-width: 1024px) 620px, 100vw"
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="card mt-7 p-6">

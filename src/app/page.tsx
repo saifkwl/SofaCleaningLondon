@@ -9,7 +9,8 @@ import { site, telHref, PHONE_DISPLAY } from '@/lib/site';
 import { PageSchema } from '@/components/PageSchema';
 import { LeadForm } from '@/components/LeadForm';
 import { TrustSignals } from '@/components/TrustSignals';
-import { BeforeAfterGallery } from '@/components/BeforeAfter';
+import { BeforeAfterGallery, BeforeAfterSlider } from '@/components/BeforeAfter';
+import { getBeforeAfterPair } from '@/data/beforeAfter';
 import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import {
@@ -87,6 +88,7 @@ const homeFaqs = [
 
 export default function HomePage() {
   const sofaPrices = priceGroups[0].items.slice(0, 6);
+  const heroPair = getBeforeAfterPair('corner-sofa')!;
 
   return (
     <>
@@ -156,13 +158,8 @@ export default function HomePage() {
                 </a>
               </div>
 
-              <div className="mt-9 overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Photo
-                  slot="home-hero"
-                  fallback="hero"
-                  priority
-                  sizes="(min-width: 1024px) 620px, 100vw"
-                />
+              <div className="mt-9">
+                <BeforeAfterSlider pair={heroPair} priority />
               </div>
             </div>
 
@@ -186,7 +183,7 @@ export default function HomePage() {
             intro="Real photos from real jobs — not stock images. Taken before we start and again once the piece is dry."
           />
           <div className="mt-10">
-            <BeforeAfterGallery limit={6} />
+            <BeforeAfterGallery exclude={heroPair.slug} />
           </div>
         </div>
       </section>

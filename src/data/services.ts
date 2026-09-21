@@ -13,6 +13,12 @@ export type Service = {
   summary: string;
   /** Image key from src/data/images.ts */
   image: string;
+  /**
+   * Slug into src/data/beforeAfter.ts, when a real job photo genuinely
+   * matches this service's fabric/method. Left unset rather than paired with
+   * a photo of the wrong material — the hero then keeps its illustration.
+   */
+  beforeAfter?: string;
   /** Quick-scan facts shown in the hero sidebar. Every value differs per service. */
   keyFacts: { label: string; value: string }[];
   /** Opening body copy, one paragraph per array entry. */
@@ -41,6 +47,7 @@ export const services: Service[] = [
     summary:
       'Hot water extraction at 60–80°C. The deepest clean available for cotton, linen, polyester and most synthetic weaves.',
     image: 'steam',
+    beforeAfter: 'grey-armchair',
     keyFacts: [
       { label: 'Also called', value: 'Hot water extraction, HWE' },
       { label: 'Water used', value: 'High — fabric is rinsed through' },
@@ -176,6 +183,7 @@ export const services: Service[] = [
     summary:
       'Solvent and encapsulation cleaning for fabrics water would ruin — velvet, linen, viscose, silk blends and anything coded "S".',
     image: 'dry',
+    beforeAfter: 'velvet-dining-chair',
     keyFacts: [
       { label: 'Also called', value: 'Low-moisture, solvent, encapsulation' },
       { label: 'Water used', value: 'Minimal — around 90% less than extraction' },
@@ -446,6 +454,7 @@ export const services: Service[] = [
     summary:
       'Carpets, stairs, rugs and upholstery in a single visit — which removes a second call-out and a second set-up from the bill.',
     image: 'combined',
+    beforeAfter: 'staircase-carpet',
     keyFacts: [
       { label: 'Best for', value: 'Whole-room refreshes and tenancy checkouts' },
       { label: 'Typical visit length', value: '2–4 hours' },

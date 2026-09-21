@@ -110,3 +110,7 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
     },
   },
 ];
+
+export function getBeforeAfterPair(slug: string): BeforeAfterPair | undefined {
+  return beforeAfterPairs.find((p) => p.slug === slug);
+}
