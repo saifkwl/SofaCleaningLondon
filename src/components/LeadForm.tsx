@@ -1,15 +1,15 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { PHONE_DISPLAY, WHATSAPP_NUMBER, telHref } from '@/lib/site';
+import { PHONE_DISPLAY, telHref, whatsappHref } from '@/lib/site';
 import { PhoneIcon, WhatsAppIcon } from './Icons';
 
 /**
  * Quote request form.
  *
  * There is no server: the form composes a readable message and hands it to
- * WhatsApp via a wa.me deep link, which opens the app on mobile and WhatsApp
- * Web on desktop. That keeps the site fully static (so every page stays
+ * WhatsApp via a click-to-chat link, which opens the app on mobile and
+ * WhatsApp Web on desktop. That keeps the site fully static (so every page stays
  * pre-rendered HTML) and means enquiries land where they get answered fastest.
  *
  * The trade-off is stated plainly in the UI: pressing the button opens
@@ -76,7 +76,7 @@ export function LeadForm({
     return lines.join('\n');
   }, [name, area, item, fabric, when, notes]);
 
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const href = whatsappHref(message);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

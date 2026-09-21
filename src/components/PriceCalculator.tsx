@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { MINIMUM_CHARGE, quoteExtras, quoteItems } from '@/data/pricing';
-import { PHONE_DISPLAY, WHATSAPP_NUMBER, site, telHref } from '@/lib/site';
+import { PHONE_DISPLAY, site, telHref, whatsappHref } from '@/lib/site';
 import { PhoneIcon, WhatsAppIcon } from './Icons';
 
 /**
@@ -35,7 +35,20 @@ export function PriceCalculator({ defaultArea = '' }: { defaultArea?: string }) 
     return { lines, subtotal, total, upper };
   }, [counts, all]);
 
+  const hasItems = lines.length > 0;
+
   const message = useMemo(() => {
+    // With nothing selected the totals are zero, and a link reading
+    // "Estimate shown: £0–£0" is what ends up in the served HTML. The button is
+    // disabled in that state, but the href is still there for anything reading
+    // the markup, so fall back to a plain request instead.
+    if (!hasItems) {
+      return [
+        'Hi Sofa Cleaning London, I would like a quote for sofa cleaning.',
+        ...(area.trim() ? ['', `Area / postcode: ${area.trim()}`] : []),
+      ].join('\n');
+    }
+
     const body = lines.map((l) => `• ${l.qty} × ${l.label}`).join('\n');
     return [
       'Hi Sofa Cleaning London, I used the price estimator on your site.',
@@ -49,10 +62,9 @@ export function PriceCalculator({ defaultArea = '' }: { defaultArea?: string }) 
       '',
       'Could you confirm a price and an available date?',
     ].join('\n');
-  }, [lines, area, total, upper]);
+  }, [lines, area, total, upper, hasItems]);
 
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  const hasItems = lines.length > 0;
+  const href = whatsappHref(message);
 
   const groups = Array.from(new Set(all.map((i) => i.group)));
 

@@ -7,6 +7,7 @@ import { priceGroups, MINIMUM_CHARGE } from '@/data/pricing';
 import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { PHONE_DISPLAY, site, telHref } from '@/lib/site';
 import { PageSchema } from '@/components/PageSchema';
+import { Photo, photoUrl } from '@/components/Photo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { LeadForm } from '@/components/LeadForm';
 import { Faq } from '@/components/Faq';
@@ -44,6 +45,7 @@ export default async function AreaPage({ params }: { params: Promise<Params> }) 
   const neighbours = area.neighbours.map((s) => getArea(s)).filter(Boolean);
   const popular = area.popularServices.map((s) => getService(s)).filter(Boolean);
   const sofaPrices = priceGroups[0].items.slice(0, 5);
+  const slot = `area-${area.slug}`;
   const crumbs = [
     { name: 'Home', path: '/' },
     { name: 'Areas we cover', path: '/areas-we-cover/' },
@@ -60,6 +62,7 @@ export default async function AreaPage({ params }: { params: Promise<Params> }) 
             description: area.metaDescription,
             path: `/areas-we-cover/${area.slug}/`,
             areaNames: [area.name, ...area.postcodes, ...area.alsoNearby],
+            image: photoUrl(slot),
           }),
           faqSchema(area.faqs),
         ]}
@@ -81,6 +84,10 @@ export default async function AreaPage({ params }: { params: Promise<Params> }) 
                 {area.intro.map((p) => (
                   <p key={p.slice(0, 40)}>{p}</p>
                 ))}
+              </div>
+
+              <div className="mt-7 overflow-hidden rounded-xl2 border border-brand-100 empty:hidden">
+                <Photo slot={slot} sizes="(min-width: 1024px) 620px, 100vw" />
               </div>
 
               {/* Local facts — different on every area page */}

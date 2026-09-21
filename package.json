@@ -9,10 +9,10 @@
     "typecheck": "tsc --noEmit",
     "illustrations": "node scripts/build-illustrations.mjs",
     "icons": "node scripts/build-icons.mjs",
-    "photos": "node scripts/fetch-photos.mjs",
     "audit": "node scripts/audit.mjs",
     "verify:leads": "node scripts/verify-leads.mjs",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "photos:apply": "node scripts/apply-photos.mjs"
   },
   "dependencies": {
     "next": "15.5.4",

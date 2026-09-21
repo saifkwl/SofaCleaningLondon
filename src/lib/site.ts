@@ -93,9 +93,20 @@ export const testimonials: Testimonial[] = [];
 /** tel: href */
 export const telHref = `tel:${PHONE_E164}`;
 
-/** Builds a wa.me deep link with a pre-filled message. */
+/**
+ * Builds a WhatsApp click-to-chat link with a pre-filled message.
+ *
+ * WhatsApp documents two forms of this link: `wa.me/<number>` and
+ * `api.whatsapp.com/send?phone=<number>`. The short one 301-redirects to the
+ * long one, so linking straight to api.whatsapp.com saves a redirect on the
+ * site's main call to action — which matters most on mobile, where nearly all
+ * of these taps happen.
+ *
+ * Every WhatsApp link on the site is built here, so the format is one edit.
+ */
 export function whatsappHref(message: string): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const params = new URLSearchParams({ phone: WHATSAPP_NUMBER, text: message });
+  return `https://api.whatsapp.com/send?${params.toString()}`;
 }
 
 /** Absolute URL for canonicals, OG tags and sitemap entries. */

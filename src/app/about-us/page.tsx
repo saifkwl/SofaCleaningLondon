@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo';
-import { getImage } from '@/data/images';
+import { Photo } from '@/components/Photo';
 import { site, unverifiedClaims } from '@/lib/site';
 import { areas } from '@/data/areas';
 import { services } from '@/data/services';
@@ -15,12 +14,11 @@ import { CtaBand, LinkPills, SectionHeading } from '@/components/Ui';
 export const metadata: Metadata = buildMetadata({
   title: 'About Us | Sofa Cleaning London',
   description:
-    'How we work: fabric identified and tested before any product is used, the price fixed before we start, and an honest answer on what will not come out.',
+    "How we work: fabric tested before any product is used, a fixed price before we start, and honest advice on what will and won't come out.",
   path: '/about-us/',
 });
 
 export default function AboutPage() {
-  const image = getImage('process');
 
   return (
     <>
@@ -109,13 +107,10 @@ export default function AboutPage() {
 
             <div className="lg:sticky lg:top-24">
               <div className="overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
+                <Photo
+                  slot="about-us"
+                  fallback="process"
                   sizes="(min-width: 1024px) 440px, 100vw"
-                  className="h-auto w-full"
                 />
               </div>
 

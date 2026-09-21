@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getService, services } from '@/data/services';
 import { areas } from '@/data/areas';
+import { Photo, photoUrl } from '@/components/Photo';
 import { getImage } from '@/data/images';
 import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { site } from '@/lib/site';
@@ -58,6 +58,8 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   if (!service) notFound();
 
   const image = getImage(service.image);
+  // Slots in scripts/image-kit/images.json drop the "-london" suffix.
+  const slot = service.slug.replace(/-london$/, '');
   const related = service.related.map((s) => getService(s)).filter(Boolean);
   const crumbs = [
     { name: 'Home', path: '/' },
@@ -75,6 +77,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             description: service.metaDescription,
             path: `/services/${service.slug}/`,
             areaNames: ['Greater London', ...areas.map((a) => a.name)],
+            image: photoUrl(slot),
           }),
           faqSchema(service.faqs),
         ]}
@@ -96,14 +99,11 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
               </p>
 
               <div className="mt-7 overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
+                <Photo
+                  slot={slot}
+                  fallback={service.image}
                   priority
                   sizes="(min-width: 1024px) 620px, 100vw"
-                  className="h-auto w-full"
                 />
               </div>
 

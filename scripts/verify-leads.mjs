@@ -13,6 +13,7 @@ import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 const base = process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers';
 const exe = join(base, readdirSync(base).find((d) => /^chromium-\d+$/.test(d)), 'chrome-linux', 'chrome');
+const WA = 'https://api.whatsapp.com/send?phone=447342840056';
 const origin = (process.env.SITE_ORIGIN || process.argv[3] || 'http://127.0.0.1:3000').replace(/\/$/, '');
 const browser = await chromium.launch({ executablePath: exe });
 const fails = [];
@@ -32,7 +33,7 @@ const fails = [];
 
   const href = await page.getByRole('link', { name: /Confirm on WhatsApp/ }).getAttribute('href');
   const msg = decodeURIComponent(new URL(href).searchParams.get('text'));
-  if (!href.startsWith('https://wa.me/447342840056?text=')) fails.push(`calculator wa.me href wrong: ${href.slice(0, 60)}`);
+  if (!href.startsWith(WA)) fails.push(`calculator WhatsApp href wrong: ${href.slice(0, 70)}`);
   for (const want of ['SW18 2AB', '1 × 3-seater sofa', '2 × Armchair', '£135–£180']) {
     if (!msg.includes(want)) fails.push(`calculator message missing "${want}"`);
   }
@@ -64,8 +65,8 @@ const fails = [];
   await page.getByRole('button', { name: /Send on WhatsApp/ }).click();
   const url = await page.evaluate(() => window.__opened);
   if (!url) { fails.push('lead form did not call window.open'); }
-  const msg = url ? decodeURIComponent(new URL(url).searchParams.get('text')) : '';
-  if (!url?.startsWith('https://wa.me/447342840056?text=')) fails.push(`lead form wa.me href wrong: ${String(url).slice(0, 60)}`);
+  const msg = url ? new URL(url).searchParams.get('text') : '';
+  if (!url?.startsWith(WA)) fails.push(`lead form WhatsApp href wrong: ${String(url).slice(0, 70)}`);
   for (const want of ['Sam Ellery', 'SW18 4LR', 'L-shape / corner sofa', 'Velvet', 'Two pet stains']) {
     if (!msg.includes(want)) fails.push(`lead form message missing "${want}"`);
   }
@@ -73,7 +74,7 @@ const fails = [];
   await page.close();
 }
 
-/* 3. tel: and wa.me links present site-wide, and the area form is pre-filled. */
+/* 3. tel: and WhatsApp links present site-wide, and the area form is pre-filled. */
 {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   const external = new Set();
@@ -84,12 +85,12 @@ const fails = [];
   await page.goto(origin + '/areas-we-cover/hackney/', { waitUntil: 'networkidle' });
   if (external.size) fails.push(`page loaded third-party resources: ${[...external].join(', ')}`);
   const tel = await page.locator('a[href="tel:+447342840056"]').count();
-  const wa = await page.locator('a[href^="https://wa.me/447342840056"]').count();
+  const wa = await page.locator(`a[href^="${WA}"]`).count();
   if (tel < 2) fails.push(`only ${tel} tel: links on the area page`);
-  if (wa < 2) fails.push(`only ${wa} wa.me links on the area page`);
+  if (wa < 2) fails.push(`only ${wa} WhatsApp links on the area page`);
   const prefilled = await page.getByLabel('Area or postcode').first().inputValue();
   if (prefilled !== 'Hackney') fails.push(`area form prefill was "${prefilled}", expected "Hackney"`);
-  console.log(`\nHackney page: ${tel} tel: links, ${wa} wa.me links, form pre-filled with "${prefilled}"`);
+  console.log(`\nHackney page: ${tel} tel: links, ${wa} WhatsApp links, form pre-filled with "${prefilled}"`);
   console.log(`Third-party resource requests: ${external.size === 0 ? 'none' : [...external].join(', ')}`);
   await page.close();
 }

@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { priceGroups, MINIMUM_CHARGE } from '@/data/pricing';
-import { getImage } from '@/data/images';
+import { Photo } from '@/components/Photo';
 import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { site, telHref, PHONE_DISPLAY } from '@/lib/site';
 import { PageSchema } from '@/components/PageSchema';
@@ -86,7 +85,6 @@ const homeFaqs = [
 ];
 
 export default function HomePage() {
-  const hero = getImage('hero');
   const sofaPrices = priceGroups[0].items.slice(0, 6);
 
   return (
@@ -158,14 +156,11 @@ export default function HomePage() {
               </div>
 
               <div className="mt-9 overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Image
-                  src={hero.src}
-                  alt={hero.alt}
-                  width={hero.width}
-                  height={hero.height}
+                <Photo
+                  slot="home-hero"
+                  fallback="hero"
                   priority
                   sizes="(min-width: 1024px) 620px, 100vw"
-                  className="h-auto w-full"
                 />
               </div>
             </div>
@@ -231,13 +226,10 @@ export default function HomePage() {
                 intro="Getting this wrong is how sofas get damaged. Water on viscose, cotton velvet or aniline leather causes problems no subsequent clean can undo, so we identify the fibre before anything else happens."
               />
               <div className="mt-7 overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-                <Image
-                  src={getImage('fabrics').src}
-                  alt={getImage('fabrics').alt}
-                  width={getImage('fabrics').width}
-                  height={getImage('fabrics').height}
+                <Photo
+                  slot="home-living-room"
+                  fallback="fabrics"
                   sizes="(min-width: 1024px) 460px, 100vw"
-                  className="h-auto w-full"
                 />
               </div>
             </div>

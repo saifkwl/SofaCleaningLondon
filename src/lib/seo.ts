@@ -122,9 +122,12 @@ export function serviceSchema(opts: {
   description: string;
   path: string;
   areaNames?: string[];
+  /** Root-relative path to the page's lead photo, when it has one. */
+  image?: string;
 }) {
   return {
     '@type': 'Service',
+    ...(opts.image ? { image: `${SITE_URL}${opts.image}` } : {}),
     serviceType: opts.name,
     name: opts.name,
     description: opts.description,

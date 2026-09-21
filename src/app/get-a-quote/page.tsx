@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { buildMetadata, faqSchema } from '@/lib/seo';
 import { MINIMUM_CHARGE } from '@/data/pricing';
-import { getImage } from '@/data/images';
+import { Photo } from '@/components/Photo';
 import { site } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PageSchema } from '@/components/PageSchema';
@@ -45,7 +44,6 @@ const quoteFaqs = [
 ];
 
 export default function QuotePage() {
-  const image = getImage('quote');
 
   return (
     <>
@@ -68,14 +66,11 @@ export default function QuotePage() {
               </p>
             </div>
             <div className="overflow-hidden rounded-xl2 border border-brand-100 shadow-card">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
+              <Photo
+                slot="get-a-quote"
+                fallback="quote"
                 priority
                 sizes="(min-width: 1024px) 460px, 100vw"
-                className="h-auto w-full"
               />
             </div>
           </div>
