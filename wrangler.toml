@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration.
+#
+# This sets the build output directory from the repository, so the deployment
+# does not depend on that field being filled in correctly in the dashboard.
+# Cloudflare reads this file and serves whatever is in `out/`.
+#
+# Note: Cloudflare does NOT read the *build command* from this file — that one
+# still has to be `npm run build` in the dashboard under
+# Settings → Build & deployments. The committed out/ directory (see README)
+# exists so the site still serves if that field is blank.
+
+name = "sofacleaninglondon"
+pages_build_output_dir = "out"
+compatibility_date = "2026-09-21"

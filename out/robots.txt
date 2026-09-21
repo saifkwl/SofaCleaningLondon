@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+
+Host: https://sofacleaninglondon.com
+Sitemap: https://sofacleaninglondon.com/sitemap.xml

@@ -176,12 +176,40 @@ Settings for the Cloudflare Pages setup screen:
 | Root directory | leave blank |
 | Environment variables | none needed |
 
-Set **Node version** to 20 or 22 if the build fails on an older default — add an
-environment variable `NODE_VERSION` = `22`.
+Node 22 is pinned by `.node-version`, and `wrangler.toml` sets the output
+directory, so the only field you must fill in by hand is the build command.
 
 `public/_headers` is copied into `out/` and read by Cloudflare Pages natively;
 it carries the security and cache headers that a static export cannot set in
 `next.config.mjs`.
+
+### Committed build output
+
+`out/` is committed to this repository on purpose.
+
+Cloudflare Pages reads the build *output directory* from `wrangler.toml`, but it
+does **not** read the build *command* from the repo — that field only exists in
+the dashboard. If it is blank, no build runs, `out/` is never created, and every
+URL returns 404. Committing the built output means the site serves correctly
+either way.
+
+Once you have confirmed a dashboard build actually succeeds (Deployments → the
+latest deployment shows "Build completed" and a file count around 108), remove
+the committed copy so it cannot go stale:
+
+```bash
+echo "out/" >> .gitignore
+git rm -r --cached out
+git commit -m "Stop committing build output now that CI builds run"
+git push
+```
+
+**Until you do that**, remember: if the dashboard build command is blank, editing
+source files changes nothing on the live site. You have to rebuild and commit:
+
+```bash
+npm run build && git add out && git commit -m "Rebuild" && git push
+```
 
 ### Rename the branch to `main` first
 

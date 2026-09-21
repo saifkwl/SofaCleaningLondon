@@ -1,10 +1,10 @@
 node_modules/
 .next/
-out/
 .env
 .env.local
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
 screenshots/
-out/
+
+# NOTE: out/ is intentionally NOT ignored — see "Committed build output" in README.
