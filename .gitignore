@@ -6,5 +6,4 @@ node_modules/
 next-env.d.ts
 .DS_Store
 screenshots/
-
-# NOTE: out/ is intentionally NOT ignored — see "Committed build output" in README.
+out/
