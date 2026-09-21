@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { MINIMUM_CHARGE, priceGroups, travelPolicy } from '@/data/pricing';
 import { services } from '@/data/services';
 import { areas } from '@/data/areas';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { site } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { CtaBand, DataTable, LinkPills, SectionHeading } from '@/components/Ui';
@@ -13,7 +14,7 @@ import { CtaBand, DataTable, LinkPills, SectionHeading } from '@/components/Ui';
 export const metadata: Metadata = buildMetadata({
   title: 'Sofa Cleaning Prices London | Transparent Price List',
   description:
-    'Sofa cleaning prices across London. 2-seater from £55, 3-seater from £75, corner sofa from £115. Minimum call-out £60. No hidden extras, price fixed before we start.',
+    'Sofa cleaning prices across London. 2-seater from £55, 3-seater from £75, corner sofa from £115. Minimum call-out £60, price fixed before we start.',
   path: '/sofa-cleaning-prices-london/',
 });
 
@@ -47,6 +48,7 @@ const priceFaqs = [
 export default function PricesPage() {
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Prices' }]} nodes={[faqSchema(priceFaqs)]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Prices' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -166,7 +168,7 @@ export default function PricesPage() {
         </div>
       </section>
 
-      <Faq faqs={priceFaqs} heading="Pricing questions" />
+      <Faq faqs={priceFaqs} heading="Pricing questions" emitSchema={false} />
 
       <section className="defer-paint">
         <div className="container-content pb-8">

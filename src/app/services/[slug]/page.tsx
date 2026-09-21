@@ -5,9 +5,9 @@ import type { Metadata } from 'next';
 import { getService, services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { getImage } from '@/data/images';
-import { buildMetadata, serviceSchema } from '@/lib/seo';
+import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { site } from '@/lib/site';
-import { JsonLd } from '@/components/JsonLd';
+import { PageSchema } from '@/components/PageSchema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { LeadForm } from '@/components/LeadForm';
 import { Faq } from '@/components/Faq';
@@ -59,25 +59,28 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
 
   const image = getImage(service.image);
   const related = service.related.map((s) => getService(s)).filter(Boolean);
+  const crumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: service.navLabel },
+  ];
 
   return (
     <>
-      <JsonLd
-        data={serviceSchema({
-          name: service.name,
-          description: service.metaDescription,
-          path: `/services/${service.slug}/`,
-          areaNames: ['Greater London', ...areas.map((a) => a.name)],
-        })}
-      />
-
-      <Breadcrumbs
-        crumbs={[
-          { name: 'Home', path: '/' },
-          { name: 'Services', path: '/services/' },
-          { name: service.navLabel },
+      <PageSchema
+        crumbs={crumbs}
+        nodes={[
+          serviceSchema({
+            name: service.name,
+            description: service.metaDescription,
+            path: `/services/${service.slug}/`,
+            areaNames: ['Greater London', ...areas.map((a) => a.name)],
+          }),
+          faqSchema(service.faqs),
         ]}
       />
+
+      <Breadcrumbs crumbs={crumbs} />
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -202,6 +205,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
       <Faq
         faqs={service.faqs}
         heading={`${service.navLabel} — common questions`}
+        emitSchema={false}
       />
 
       {/* Related services */}

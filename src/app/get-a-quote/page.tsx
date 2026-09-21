@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { MINIMUM_CHARGE } from '@/data/pricing';
 import { getImage } from '@/data/images';
 import { site } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { PriceCalculator } from '@/components/PriceCalculator';
 import { LeadForm } from '@/components/LeadForm';
 import { Faq } from '@/components/Faq';
@@ -48,6 +49,7 @@ export default function QuotePage() {
 
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Get a quote' }]} nodes={[faqSchema(quoteFaqs)]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Get a quote' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -143,7 +145,7 @@ export default function QuotePage() {
         </div>
       </section>
 
-      <Faq faqs={quoteFaqs} heading="Quotes and booking" />
+      <Faq faqs={quoteFaqs} heading="Quotes and booking" emitSchema={false} />
       <CtaBand />
       <MobileCallBar />
     </>

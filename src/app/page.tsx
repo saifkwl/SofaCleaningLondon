@@ -5,9 +5,9 @@ import { services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { priceGroups, MINIMUM_CHARGE } from '@/data/pricing';
 import { getImage } from '@/data/images';
-import { buildMetadata, serviceSchema } from '@/lib/seo';
+import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { site, telHref, PHONE_DISPLAY } from '@/lib/site';
-import { JsonLd } from '@/components/JsonLd';
+import { PageSchema } from '@/components/PageSchema';
 import { LeadForm } from '@/components/LeadForm';
 import { TrustSignals } from '@/components/TrustSignals';
 import { Faq } from '@/components/Faq';
@@ -91,14 +91,17 @@ export default function HomePage() {
 
   return (
     <>
-      <JsonLd
-        data={serviceSchema({
-          name: 'Sofa and Upholstery Cleaning',
-          description:
-            'Professional sofa, upholstery and carpet cleaning across Greater London, using hot water extraction or low-moisture methods chosen by fabric type.',
-          path: '/',
-          areaNames: ['Greater London', ...areas.map((a) => a.name)],
-        })}
+      <PageSchema
+        nodes={[
+          serviceSchema({
+            name: 'Sofa and Upholstery Cleaning',
+            description:
+              'Professional sofa, upholstery and carpet cleaning across Greater London, using hot water extraction or low-moisture methods chosen by fabric type.',
+            path: '/',
+            areaNames: ['Greater London', ...areas.map((a) => a.name)],
+          }),
+          faqSchema(homeFaqs),
+        ]}
       />
 
       {/* ---------------------------------------------------------------- */}
@@ -339,6 +342,7 @@ export default function HomePage() {
         faqs={homeFaqs}
         heading="Sofa cleaning in London: your questions"
         intro="If yours is not here, the service and area pages go into more detail, or just call and ask."
+        emitSchema={false}
       />
 
       <CtaBand />

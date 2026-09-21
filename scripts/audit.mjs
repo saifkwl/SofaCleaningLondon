@@ -48,7 +48,7 @@ for (const loc of locs) {
 
   const desc = pick(/<meta name="description" content="([^"]*)"/);
   if (!desc) problem(fail, path, 'no meta description');
-  else if (desc.length > 165) problem(warn, path, `description ${desc.length} chars (>165)`);
+  else if (desc.length > 155) problem(fail, path, `description ${desc.length} chars (>155, Ahrefs flags this)`);
 
   if (/<meta name="robots"[^>]*noindex/i.test(html)) problem(fail, path, 'noindex but in sitemap');
 
@@ -56,13 +56,28 @@ for (const loc of locs) {
   if (h1s !== 1) problem(fail, path, `${h1s} <h1> tags (want exactly 1)`);
 
   // JSON-LD must parse — invalid blocks are silently ignored by Google.
+  // Exactly one block, shaped as an @graph containing the business node.
+  // Nodes split across separate <script> tags cannot resolve each other's @id
+  // references, which validators report as a schema.org error.
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-  if (blocks.length === 0) problem(warn, path, 'no JSON-LD');
+  if (blocks.length === 0) problem(fail, path, 'no JSON-LD');
+  else if (blocks.length > 1) problem(fail, path, `${blocks.length} JSON-LD blocks (want 1 @graph)`);
   for (const [, raw] of blocks) {
+    let parsed;
     try {
-      JSON.parse(raw);
+      parsed = JSON.parse(raw);
     } catch (e) {
       problem(fail, path, `invalid JSON-LD: ${e.message}`);
+      continue;
+    }
+    if (!Array.isArray(parsed['@graph'])) problem(fail, path, 'JSON-LD is not an @graph');
+    else {
+      const ids = parsed['@graph'].map((n) => n['@id']).filter(Boolean);
+      const refs = JSON.stringify(parsed['@graph']).match(/"@id":"[^"]+"/g) ?? [];
+      for (const ref of new Set(refs)) {
+        const id = ref.slice(7, -1);
+        if (!ids.includes(id)) problem(fail, path, `@id reference ${id} resolves to nothing`);
+      }
     }
   }
 

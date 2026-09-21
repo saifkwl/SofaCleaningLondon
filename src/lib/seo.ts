@@ -76,7 +76,6 @@ export const BUSINESS_ID = `${SITE_URL}/#business`;
  */
 export function localBusinessSchema() {
   const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
     '@type': 'CleaningService',
     '@id': BUSINESS_ID,
     name: site.name,
@@ -125,7 +124,6 @@ export function serviceSchema(opts: {
   areaNames?: string[];
 }) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Service',
     serviceType: opts.name,
     name: opts.name,
@@ -139,7 +137,6 @@ export function serviceSchema(opts: {
 /** Mirrors the visible breadcrumb exactly. The last crumb carries no `item`. */
 export function breadcrumbSchema(crumbs: { name: string; path?: string }[]) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: crumbs.map((c, i) => ({
       '@type': 'ListItem',
@@ -153,7 +150,6 @@ export function breadcrumbSchema(crumbs: { name: string; path?: string }[]) {
 /** Only emit this where the questions and answers are visible on the page. */
 export function faqSchema(faqs: FAQ[]) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({
       '@type': 'Question',
@@ -165,12 +161,40 @@ export function faqSchema(faqs: FAQ[]) {
 
 export function websiteSchema() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     url: `${SITE_URL}/`,
     name: site.name,
     publisher: { '@id': BUSINESS_ID },
     inLanguage: 'en-GB',
+  };
+}
+
+/**
+ * Assembles every schema node for one page into a single JSON-LD document.
+ *
+ * Why one document rather than a script tag per node: `Service.provider` and
+ * `WebSite.publisher` point at the business by `@id`. Split across separate
+ * <script> blocks those references have nothing to resolve against, because
+ * each block is parsed on its own — which is what Ahrefs was reporting as a
+ * schema.org validation error on all 27 pages. Inside one `@graph` every
+ * reference resolves.
+ *
+ * `@context` appears once, at the top, rather than on each node.
+ */
+export function pageGraph(opts: {
+  /** The page's visible breadcrumb trail. Emitted as BreadcrumbList. */
+  crumbs?: { name: string; path?: string }[];
+  /** Page-specific nodes: Service, FAQPage, and so on. */
+  nodes?: Record<string, unknown>[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      localBusinessSchema(),
+      websiteSchema(),
+      ...(opts.crumbs ? [breadcrumbSchema(opts.crumbs)] : []),
+      ...(opts.nodes ?? []),
+    ],
   };
 }

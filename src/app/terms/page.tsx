@@ -4,6 +4,7 @@ import { buildMetadata } from '@/lib/seo';
 import { MINIMUM_CHARGE } from '@/data/pricing';
 import { PHONE_DISPLAY, site } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { MobileCallBar } from '@/components/MobileCallBar';
 
 export const metadata: Metadata = buildMetadata({
@@ -95,6 +96,7 @@ export default function TermsPage() {
 
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Terms of service' }]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Terms of service' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">

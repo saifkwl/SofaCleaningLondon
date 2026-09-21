@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { PHONE_DISPLAY, site, telHref, whatsappHref } from '@/lib/site';
 import { areas } from '@/data/areas';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { LeadForm } from '@/components/LeadForm';
 import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
@@ -39,6 +40,7 @@ const contactFaqs = [
 export default function ContactPage() {
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact' }]} nodes={[faqSchema(contactFaqs)]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -147,7 +149,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Faq faqs={contactFaqs} heading="Getting in touch" />
+      <Faq faqs={contactFaqs} heading="Getting in touch" emitSchema={false} />
       <CtaBand />
       <MobileCallBar />
     </>

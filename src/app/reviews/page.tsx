@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { reviewProfiles, testimonials, unverifiedClaims, whatsappHref } from '@/lib/site';
 import { buildReviewSchema } from './schema';
-import { JsonLd } from '@/components/JsonLd';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { CtaBand, SectionHeading } from '@/components/Ui';
@@ -42,7 +42,10 @@ export default function ReviewsPage() {
 
   return (
     <>
-      {schema && <JsonLd data={schema} />}
+      <PageSchema
+        crumbs={[{ name: 'Home', path: '/' }, { name: 'Reviews' }]}
+        nodes={[...(schema ? [schema] : []), faqSchema(reviewFaqs)]}
+      />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Reviews' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -165,7 +168,7 @@ export default function ReviewsPage() {
         </div>
       </section>
 
-      <Faq faqs={reviewFaqs} heading="Feedback and standards" />
+      <Faq faqs={reviewFaqs} heading="Feedback and standards" emitSchema={false} />
 
       <section className="defer-paint">
         <div className="container-content pb-8 text-center">

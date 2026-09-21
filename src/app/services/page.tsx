@@ -2,8 +2,9 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { services } from '@/data/services';
 import { areas } from '@/data/areas';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { LinkCard, LinkPills, SectionHeading, CtaBand, DataTable } from '@/components/Ui';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { Faq } from '@/components/Faq';
@@ -37,6 +38,7 @@ const hubFaqs = [
 export default function ServicesHubPage() {
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Services' }]} nodes={[faqSchema(hubFaqs)]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Services' }]} />
 
       <section>
@@ -114,7 +116,7 @@ export default function ServicesHubPage() {
         </div>
       </section>
 
-      <Faq faqs={hubFaqs} heading="Choosing a service" />
+      <Faq faqs={hubFaqs} heading="Choosing a service" emitSchema={false} />
       <CtaBand />
       <MobileCallBar />
     </>

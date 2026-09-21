@@ -13,6 +13,7 @@ import {
 import { services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { CtaBand, SectionHeading } from '@/components/Ui';
 
@@ -34,6 +35,7 @@ export const metadata: Metadata = buildMetadata({
 export default function SitemapPage() {
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Site index' }]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Site index' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">

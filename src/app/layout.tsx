@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { JsonLd } from '@/components/JsonLd';
-import { localBusinessSchema, websiteSchema } from '@/lib/seo';
 import { SITE_URL, site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -37,11 +35,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB">
-      <head>
-        {/* Site-wide entities. Page-level schema (Service, FAQPage,
-            BreadcrumbList) is emitted by each page and references these by @id. */}
-        <JsonLd data={[localBusinessSchema(), websiteSchema()]} />
-      </head>
       <body>
         <a
           href="#main"

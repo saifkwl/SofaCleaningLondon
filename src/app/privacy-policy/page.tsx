@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo';
 import { PHONE_DISPLAY, site } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { MobileCallBar } from '@/components/MobileCallBar';
 
 export const metadata: Metadata = buildMetadata({
@@ -30,6 +31,7 @@ export default function PrivacyPage() {
 
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Privacy policy' }]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Privacy policy' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">

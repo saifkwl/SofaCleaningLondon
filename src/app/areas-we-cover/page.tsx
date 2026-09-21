@@ -2,9 +2,10 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { areas } from '@/data/areas';
 import { services } from '@/data/services';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, faqSchema } from '@/lib/seo';
 import { PHONE_DISPLAY } from '@/lib/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { CtaBand, DataTable, LinkCard, LinkPills, SectionHeading } from '@/components/Ui';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { Faq } from '@/components/Faq';
@@ -12,7 +13,7 @@ import { Faq } from '@/components/Faq';
 export const metadata: Metadata = buildMetadata({
   title: 'Areas We Cover | Sofa Cleaning Across Greater London',
   description:
-    'Sofa and upholstery cleaning across Wandsworth, Fulham, Clapham, Putney, Balham, Streatham, Islington, Hackney, Chiswick and Barnet, plus wider Greater London.',
+    'Sofa and upholstery cleaning across Wandsworth, Fulham, Clapham, Putney, Balham, Streatham, Islington, Hackney, Chiswick, Barnet and wider London.',
   path: '/areas-we-cover/',
 });
 
@@ -38,6 +39,7 @@ const hubFaqs = [
 export default function AreasHubPage() {
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'Areas we cover' }]} nodes={[faqSchema(hubFaqs)]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'Areas we cover' }]} />
 
       <section>
@@ -118,7 +120,7 @@ export default function AreasHubPage() {
         </div>
       </section>
 
-      <Faq faqs={hubFaqs} heading="Coverage and travel" />
+      <Faq faqs={hubFaqs} heading="Coverage and travel" emitSchema={false} />
       <CtaBand />
       <MobileCallBar />
     </>

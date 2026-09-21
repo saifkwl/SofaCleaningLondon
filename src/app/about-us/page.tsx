@@ -7,6 +7,7 @@ import { site, unverifiedClaims } from '@/lib/site';
 import { areas } from '@/data/areas';
 import { services } from '@/data/services';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageSchema } from '@/components/PageSchema';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { VerifiedClaims } from '@/components/TrustSignals';
 import { CtaBand, LinkPills, SectionHeading } from '@/components/Ui';
@@ -14,7 +15,7 @@ import { CtaBand, LinkPills, SectionHeading } from '@/components/Ui';
 export const metadata: Metadata = buildMetadata({
   title: 'About Us | Sofa Cleaning London',
   description:
-    'How we work: fabric identified and tested before any product is used, the price fixed before we start, and an honest answer about what will and will not come out.',
+    'How we work: fabric identified and tested before any product is used, the price fixed before we start, and an honest answer on what will not come out.',
   path: '/about-us/',
 });
 
@@ -23,6 +24,7 @@ export default function AboutPage() {
 
   return (
     <>
+      <PageSchema crumbs={[{ name: 'Home', path: '/' }, { name: 'About us' }]} />
       <Breadcrumbs crumbs={[{ name: 'Home', path: '/' }, { name: 'About us' }]} />
 
       <section className="bg-gradient-to-b from-brand-50 to-white">

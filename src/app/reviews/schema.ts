@@ -27,7 +27,6 @@ export function buildReviewSchema(): Record<string, unknown> | null {
   }));
 
   const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
     '@type': 'CleaningService',
     '@id': BUSINESS_ID,
     url: `${SITE_URL}/`,

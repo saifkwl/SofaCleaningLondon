@@ -1,21 +1,17 @@
 import Link from 'next/link';
-import { JsonLd } from './JsonLd';
-import { breadcrumbSchema } from '@/lib/seo';
 
 export type Crumb = { name: string; path?: string };
 
 /**
- * Visible breadcrumb plus the matching BreadcrumbList markup.
+ * The visible breadcrumb trail.
  *
- * Both are rendered from the same array, so the structured data can never
- * describe a hierarchy the page does not actually show — which is what
- * Google's structured data guidelines require.
+ * The matching BreadcrumbList markup is emitted by <PageSchema>, from the same
+ * `crumbs` array — pass one array to both so the structured data can never
+ * describe a hierarchy the page does not actually show.
  */
 export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   return (
-    <>
-      <JsonLd data={breadcrumbSchema(crumbs)} />
-      <nav aria-label="Breadcrumb" className="container-content pt-5">
+    <nav aria-label="Breadcrumb" className="container-content pt-5">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-muted">
           {crumbs.map((c, i) => (
             <li key={c.name} className="flex items-center gap-2">
@@ -36,7 +32,6 @@ export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
             </li>
           ))}
         </ol>
-      </nav>
-    </>
+    </nav>
   );
 }

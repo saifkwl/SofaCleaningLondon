@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { areas, getArea } from '@/data/areas';
 import { getService, services } from '@/data/services';
 import { priceGroups, MINIMUM_CHARGE } from '@/data/pricing';
-import { buildMetadata, serviceSchema } from '@/lib/seo';
+import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
 import { PHONE_DISPLAY, site, telHref } from '@/lib/site';
-import { JsonLd } from '@/components/JsonLd';
+import { PageSchema } from '@/components/PageSchema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { LeadForm } from '@/components/LeadForm';
 import { Faq } from '@/components/Faq';
@@ -44,25 +44,28 @@ export default async function AreaPage({ params }: { params: Promise<Params> }) 
   const neighbours = area.neighbours.map((s) => getArea(s)).filter(Boolean);
   const popular = area.popularServices.map((s) => getService(s)).filter(Boolean);
   const sofaPrices = priceGroups[0].items.slice(0, 5);
+  const crumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Areas we cover', path: '/areas-we-cover/' },
+    { name: area.name },
+  ];
 
   return (
     <>
-      <JsonLd
-        data={serviceSchema({
-          name: `Sofa and Upholstery Cleaning in ${area.name}`,
-          description: area.metaDescription,
-          path: `/areas-we-cover/${area.slug}/`,
-          areaNames: [area.name, ...area.postcodes, ...area.alsoNearby],
-        })}
-      />
-
-      <Breadcrumbs
-        crumbs={[
-          { name: 'Home', path: '/' },
-          { name: 'Areas we cover', path: '/areas-we-cover/' },
-          { name: area.name },
+      <PageSchema
+        crumbs={crumbs}
+        nodes={[
+          serviceSchema({
+            name: `Sofa and Upholstery Cleaning in ${area.name}`,
+            description: area.metaDescription,
+            path: `/areas-we-cover/${area.slug}/`,
+            areaNames: [area.name, ...area.postcodes, ...area.alsoNearby],
+          }),
+          faqSchema(area.faqs),
         ]}
       />
+
+      <Breadcrumbs crumbs={crumbs} />
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-brand-50 to-white">
@@ -280,7 +283,11 @@ export default async function AreaPage({ params }: { params: Promise<Params> }) 
         </div>
       </section>
 
-      <Faq faqs={area.faqs} heading={`Sofa cleaning ${area.preposition} ${area.name}: your questions`} />
+      <Faq
+        faqs={area.faqs}
+        heading={`Sofa cleaning ${area.preposition} ${area.name}: your questions`}
+        emitSchema={false}
+      />
 
       {/* Neighbouring areas — the lateral link block */}
       <section className="defer-paint">
