@@ -1,5 +1,5 @@
 import NextImage from 'next/image';
-import { getPhoto, largest, srcSet, type Photo as PhotoData } from '@/data/photos';
+import { getPhoto, largest, photoForSection, srcSet, type Photo as PhotoData } from '@/data/photos';
 import { getImage } from '@/data/images';
 
 /**
@@ -84,12 +84,57 @@ export function Photo({
 }
 
 /**
+ * The photo the image kit placed under a particular H2, or nothing.
+ *
+ * Renders nothing at all when that section has no photograph, which is the
+ * default — so a page reads correctly whether it has three in-page images or
+ * none.
+ */
+export function SectionPhoto({
+  page,
+  heading,
+  className = 'mt-6 overflow-hidden rounded-xl2 border border-brand-100',
+}: {
+  page: string;
+  heading: string;
+  className?: string;
+}) {
+  const photo = photoForSection(page, heading);
+  if (!photo) return null;
+  const main = largest(photo);
+  return (
+    <figure className={className}>
+      <img
+        src={main.file}
+        srcSet={srcSet(photo)}
+        sizes="(min-width: 1024px) 800px, 100vw"
+        width={main.width}
+        height={main.height}
+        alt={photo.alt}
+        loading="lazy"
+        decoding="async"
+        className="h-auto w-full"
+      />
+    </figure>
+  );
+}
+
+/**
  * The absolute URL of a slot's photo, for og:image and the page's JSON-LD.
  * Returns undefined when the slot has no photograph.
  */
 export function photoUrl(slot: string): string | undefined {
   const photo = getPhoto(slot);
   return photo ? largest(photo).file : undefined;
+}
+
+/**
+ * A slot's 1200x630 share card, if the image kit produced one. Falls back to
+ * the illustration's card at the call site — never to an SVG, which social
+ * platforms will not render.
+ */
+export function photoOg(slot: string): string | undefined {
+  return getPhoto(slot)?.og;
 }
 
 export type { PhotoData };

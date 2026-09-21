@@ -17,7 +17,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     'Build a sofa cleaning estimate in about thirty seconds, then send it to us on WhatsApp. Free quotes, no call-out fee, minimum call-out £60.',
   path: '/get-a-quote/',
-  image: '/images/quote.svg',
+  image: '/images/og/quote.jpg',
 });
 
 const quoteFaqs = [

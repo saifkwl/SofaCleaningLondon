@@ -137,11 +137,32 @@ These are illustrative. **Never caption them as "our work", "our team", or
 Photographs of your own jobs beat any stock library — drop them in
 `public/images/` and add them to the manifest by hand.
 
+### Share cards (og:image)
+
+Facebook, WhatsApp, LinkedIn and X do not render SVG in a link preview, so an
+SVG `og:image` means a shared link shows no image at all. Every illustration
+therefore has a 1200x630 JPEG beside it in `public/images/og/`, and that is what
+the pages point `og:image` at — never the `.svg`.
+
+When the image kit produces a real hero photo it also writes `<slot>-og.jpg`,
+and the page prefers that over the illustration's card automatically.
+
+### In-page photos on service pages
+
+`scripts/image-kit/SERVICE_PAGES_IMAGE_PLAN.md` places 3–4 photos inside each
+service page, under named H2s. The pairing is made at render time by matching
+the photo's `section` against the heading the page actually renders, compared
+loosely on case and punctuation.
+
+That means a reworded heading cannot put a photo in the wrong place — it simply
+stops matching and the section renders without an image.
+
 ### Regenerating brand assets
 
 ```bash
 npm run illustrations   # the SVGs
-npm run icons           # favicon, apple touch icon, Open Graph card
+npm run social          # the 1200x630 share cards
+npm run icons           # favicon, apple touch icon, default Open Graph card
 ```
 
 ## Adding a page

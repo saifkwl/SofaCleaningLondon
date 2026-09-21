@@ -42,13 +42,19 @@ def fetch_candidates(slots, key, n):
     os.makedirs("candidates", exist_ok=True)
     rows, cards = [], []
     for s in slots:
-        photos = search(s["query"], s["orientation"], n, key)
+        photos, seen = [], set()
+        for q in s.get("queries", [s["query"]]):
+            for p in search(q, s["orientation"], n, key):
+                if p["id"] not in seen:
+                    seen.add(p["id"]); photos.append(p)
+            if len(photos) >= n * 2: break
+        photos = photos[: n * 2]
         for i, p in enumerate(photos, 1):
             name = f'{s["slot"]}-{i}'
             data = requests.get(p["src"]["large2x"], timeout=60).content
             Image.open(io.BytesIO(data)).convert("RGB").save(f"candidates/{name}.jpg", quality=85)
             rows.append([name, s["slot"], p["id"], p["url"], p["photographer"], p["photographer_url"]])
-            cards.append(f'<figure><img src="candidates/{name}.jpg" loading="lazy"><figcaption><b>{name}</b> — {s["page"]}<br>'
+            cards.append(f'<figure><img src="candidates/{name}.jpg" loading="lazy"><figcaption><b>{name}</b> — {s["page"]}<br><i>{s.get("placement","")}</i><br>'
                          f'<a href="{p["url"]}">Pexels #{p["id"]}</a> by {p["photographer"]}</figcaption></figure>')
         print(f'{s["slot"]}: {len(photos)} candidates')
     with open("credits.csv", "w", newline="") as f:
@@ -72,6 +78,11 @@ def compress_picks(slots, picks):
         for w in [w for w in SIZES if w <= s["width"]]:
             (fw, fh), kb = save_webp(img, f'{out}/{s["slot"]}-{w}.webp', w, max_kb if w == s["width"] else max_kb * 0.6)
             files.append({"file": f'/images/{s["slot"]}-{w}.webp', "width": fw, "height": fh, "kb": kb})
+        if s.get("og_image"):
+            w, h = img.size; tw = min(w, round(h * 1200 / 630)); th = round(tw * 630 / 1200)
+            og = img.crop(((w - tw) // 2, (h - th) // 2, (w - tw) // 2 + tw, (h - th) // 2 + th)).resize((1200, 630), Image.LANCZOS)
+            og.save(f'{out}/{s["slot"]}-og.jpg', "JPEG", quality=78, optimize=True, progressive=True)
+            files.append({"file": f'/images/{s["slot"]}-og.jpg', "width": 1200, "height": 630, "og": True})
         manifest.append({**s, "files": files})
         print(s["slot"], [f["kb"] for f in files], "KB")
     json.dump(manifest, open(f"{out}/manifest.json", "w"), indent=2)

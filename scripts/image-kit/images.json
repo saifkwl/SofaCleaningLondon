@@ -1,27 +1,545 @@
 [
- {"slot":"home-hero","page":"/","query":"sofa cleaning upholstery","orientation":"landscape","width":1600,"hero":true,"alt":"Upholstery cleaner cleaning a fabric sofa in a London home"},
- {"slot":"home-living-room","page":"/","query":"clean living room sofa","orientation":"landscape","width":1200,"alt":"Freshly cleaned fabric sofa in a bright living room"},
- {"slot":"services-hub","page":"/services/","query":"upholstery cleaning","orientation":"landscape","width":1600,"hero":true,"alt":"Professional upholstery cleaning equipment on a sofa"},
- {"slot":"steam-sofa-cleaning","page":"/services/steam-sofa-cleaning-london/","query":"steam cleaning sofa","orientation":"landscape","width":1200,"alt":"Hot water extraction cleaning of a fabric sofa"},
- {"slot":"sofa-dry-cleaning","page":"/services/sofa-dry-cleaning-london/","query":"velvet sofa","orientation":"landscape","width":1200,"alt":"Delicate velvet sofa suited to low-moisture dry cleaning"},
- {"slot":"leather-sofa-cleaning","page":"/services/leather-sofa-cleaning-london/","query":"leather sofa","orientation":"landscape","width":1200,"alt":"Leather sofa being cleaned and conditioned"},
- {"slot":"sofa-bed-cleaning","page":"/services/sofa-bed-cleaning-london/","query":"sofa bed","orientation":"landscape","width":1200,"alt":"Sofa bed opened out with its mattress"},
- {"slot":"carpet-and-sofa-cleaning","page":"/services/carpet-and-sofa-cleaning-london/","query":"carpet cleaning","orientation":"landscape","width":1200,"alt":"Carpet and sofa cleaned in the same room"},
- {"slot":"commercial-upholstery","page":"/services/commercial-upholstery-cleaning-london/","query":"office chairs lounge","orientation":"landscape","width":1200,"alt":"Upholstered seating in an office lounge"},
- {"slot":"prices","page":"/sofa-cleaning-prices-london/","query":"corner sofa","orientation":"landscape","width":1200,"alt":"Corner sofa in a modern living room"},
- {"slot":"get-a-quote","page":"/get-a-quote/","query":"fabric sofa cushions","orientation":"landscape","width":1200,"alt":"Fabric sofa with cushions ready for cleaning"},
- {"slot":"about-us","page":"/about-us/","query":"fabric texture close up","orientation":"landscape","width":1200,"alt":"Close-up of upholstery fabric being checked before cleaning"},
- {"slot":"reviews","page":"/reviews/","query":"cosy living room sofa","orientation":"landscape","width":1200,"alt":"Comfortable clean sofa in a home"},
- {"slot":"contact-us","page":"/contact-us/","query":"london townhouse street","orientation":"landscape","width":1200,"alt":"Residential street in London"},
- {"slot":"areas-hub","page":"/areas-we-cover/","query":"london skyline","orientation":"landscape","width":1600,"hero":true,"alt":"London skyline, the area we cover"},
- {"slot":"area-wandsworth","page":"/areas-we-cover/wandsworth/","query":"Wandsworth London","orientation":"landscape","width":1200,"alt":"Wandsworth, south-west London"},
- {"slot":"area-putney","page":"/areas-we-cover/putney/","query":"Putney Bridge London","orientation":"landscape","width":1200,"alt":"Putney Bridge over the Thames"},
- {"slot":"area-chiswick","page":"/areas-we-cover/chiswick/","query":"Chiswick London","orientation":"landscape","width":1200,"alt":"Chiswick, west London"},
- {"slot":"area-streatham","page":"/areas-we-cover/streatham/","query":"Streatham London","orientation":"landscape","width":1200,"alt":"Streatham, south London"},
- {"slot":"area-islington","page":"/areas-we-cover/islington/","query":"Islington London","orientation":"landscape","width":1200,"alt":"Islington, north London"},
- {"slot":"area-fulham","page":"/areas-we-cover/fulham/","query":"Fulham London","orientation":"landscape","width":1200,"alt":"Fulham, south-west London"},
- {"slot":"area-barnet","page":"/areas-we-cover/barnet/","query":"Barnet London","orientation":"landscape","width":1200,"alt":"Barnet, north London"},
- {"slot":"area-hackney","page":"/areas-we-cover/hackney/","query":"Hackney London","orientation":"landscape","width":1200,"alt":"Hackney, east London"},
- {"slot":"area-balham","page":"/areas-we-cover/balham/","query":"Balham London","orientation":"landscape","width":1200,"alt":"Balham, south-west London"},
- {"slot":"area-clapham","page":"/areas-we-cover/clapham/","query":"Clapham Common London","orientation":"landscape","width":1200,"alt":"Clapham Common, south London"}
+ {
+  "slot": "home-hero",
+  "page": "/",
+  "query": "sofa cleaning upholstery",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Upholstery cleaner cleaning a fabric sofa in a London home"
+ },
+ {
+  "slot": "home-living-room",
+  "page": "/",
+  "query": "clean living room sofa",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Freshly cleaned fabric sofa in a bright living room"
+ },
+ {
+  "slot": "services-hub",
+  "page": "/services/",
+  "query": "upholstery cleaning",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Professional upholstery cleaning equipment on a sofa"
+ },
+ {
+  "slot": "prices",
+  "page": "/sofa-cleaning-prices-london/",
+  "query": "corner sofa",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Corner sofa in a modern living room"
+ },
+ {
+  "slot": "get-a-quote",
+  "page": "/get-a-quote/",
+  "query": "fabric sofa cushions",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Fabric sofa with cushions ready for cleaning"
+ },
+ {
+  "slot": "about-us",
+  "page": "/about-us/",
+  "query": "fabric texture close up",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Close-up of upholstery fabric being checked before cleaning"
+ },
+ {
+  "slot": "reviews",
+  "page": "/reviews/",
+  "query": "cosy living room sofa",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Comfortable clean sofa in a home"
+ },
+ {
+  "slot": "contact-us",
+  "page": "/contact-us/",
+  "query": "london townhouse street",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Residential street in London"
+ },
+ {
+  "slot": "areas-hub",
+  "page": "/areas-we-cover/",
+  "query": "london skyline",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "London skyline, the area we cover"
+ },
+ {
+  "slot": "area-wandsworth",
+  "page": "/areas-we-cover/wandsworth/",
+  "query": "Wandsworth London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Wandsworth, south-west London"
+ },
+ {
+  "slot": "area-putney",
+  "page": "/areas-we-cover/putney/",
+  "query": "Putney Bridge London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Putney Bridge over the Thames"
+ },
+ {
+  "slot": "area-chiswick",
+  "page": "/areas-we-cover/chiswick/",
+  "query": "Chiswick London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Chiswick, west London"
+ },
+ {
+  "slot": "area-streatham",
+  "page": "/areas-we-cover/streatham/",
+  "query": "Streatham London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Streatham, south London"
+ },
+ {
+  "slot": "area-islington",
+  "page": "/areas-we-cover/islington/",
+  "query": "Islington London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Islington, north London"
+ },
+ {
+  "slot": "area-fulham",
+  "page": "/areas-we-cover/fulham/",
+  "query": "Fulham London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Fulham, south-west London"
+ },
+ {
+  "slot": "area-barnet",
+  "page": "/areas-we-cover/barnet/",
+  "query": "Barnet London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Barnet, north London"
+ },
+ {
+  "slot": "area-hackney",
+  "page": "/areas-we-cover/hackney/",
+  "query": "Hackney London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Hackney, east London"
+ },
+ {
+  "slot": "area-balham",
+  "page": "/areas-we-cover/balham/",
+  "query": "Balham London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Balham, south-west London"
+ },
+ {
+  "slot": "area-clapham",
+  "page": "/areas-we-cover/clapham/",
+  "query": "Clapham Common London",
+  "orientation": "landscape",
+  "width": 1200,
+  "alt": "Clapham Common, south London"
+ },
+ {
+  "slot": "steam-hero",
+  "page": "/services/steam-sofa-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "upholstery cleaning sofa",
+   "sofa cleaning machine",
+   "cleaning fabric couch"
+  ],
+  "query": "upholstery cleaning sofa",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Hot water extraction tool cleaning the seat of a fabric sofa",
+  "replaces": "/images/steam.svg",
+  "og_image": true
+ },
+ {
+  "slot": "steam-dry-vacuum",
+  "page": "/services/steam-sofa-cleaning-london/",
+  "placement": "after the H2 \"How steam sofa cleaning works\"",
+  "section": "How steam sofa cleaning works",
+  "queries": [
+   "vacuuming sofa",
+   "vacuum couch cushion"
+  ],
+  "query": "vacuuming sofa",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Vacuuming a sofa cushion to remove dry grit before any moisture goes on"
+ },
+ {
+  "slot": "steam-fabrics",
+  "page": "/services/steam-sofa-cleaning-london/",
+  "placement": "after the H2 \"Which fabrics take steam cleaning well\"",
+  "section": "Which fabrics take steam cleaning well",
+  "queries": [
+   "sofa fabric close up",
+   "upholstery fabric texture"
+  ],
+  "query": "sofa fabric close up",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Close-up of a woven fabric sofa, the type that suits hot water extraction"
+ },
+ {
+  "slot": "steam-drying",
+  "page": "/services/steam-sofa-cleaning-london/",
+  "placement": "after the H2 \"Drying: what actually controls it\"",
+  "section": "Drying: what actually controls it",
+  "queries": [
+   "living room open window",
+   "bright living room sofa window"
+  ],
+  "query": "living room open window",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Bright, ventilated living room where a freshly cleaned sofa dries faster"
+ },
+ {
+  "slot": "steam-tenancy",
+  "page": "/services/steam-sofa-cleaning-london/",
+  "placement": "after the H2 \"Steam cleaning for end-of-tenancy checkouts\"",
+  "section": "Steam cleaning for end-of-tenancy checkouts",
+  "queries": [
+   "empty apartment living room",
+   "flat moving out"
+  ],
+  "query": "empty apartment living room",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Empty rented flat living room ready for an end-of-tenancy inspection"
+ },
+ {
+  "slot": "dry-hero",
+  "page": "/services/sofa-dry-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "velvet sofa",
+   "velvet couch living room"
+  ],
+  "query": "velvet sofa",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Velvet sofa of the kind that needs low-moisture dry cleaning",
+  "replaces": "/images/dry.svg",
+  "og_image": true
+ },
+ {
+  "slot": "dry-velvet-pile",
+  "page": "/services/sofa-dry-cleaning-london/",
+  "placement": "after the H2 \"Velvet, and why it needs a different pair of hands\"",
+  "section": "Velvet, and why it needs a different pair of hands",
+  "queries": [
+   "velvet fabric close up",
+   "velvet texture"
+  ],
+  "query": "velvet fabric close up",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Close-up of velvet pile, which crushes and shades if it gets too wet"
+ },
+ {
+  "slot": "dry-linen",
+  "page": "/services/sofa-dry-cleaning-london/",
+  "placement": "after the H2 \"When dry cleaning is the right choice over steam\"",
+  "section": "When dry cleaning is the right choice over steam",
+  "queries": [
+   "linen sofa",
+   "linen couch"
+  ],
+  "query": "linen sofa",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Linen sofa, a fabric that shrinks and watermarks with wet cleaning"
+ },
+ {
+  "slot": "dry-antique",
+  "page": "/services/sofa-dry-cleaning-london/",
+  "placement": "after the H2 \"Antique and high-value upholstery\"",
+  "section": "Antique and high-value upholstery",
+  "queries": [
+   "antique armchair",
+   "vintage upholstered chair"
+  ],
+  "query": "antique armchair",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Antique upholstered armchair needing conservative, low-moisture cleaning"
+ },
+ {
+  "slot": "leather-hero",
+  "page": "/services/leather-sofa-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "brown leather sofa",
+   "leather couch living room"
+  ],
+  "query": "brown leather sofa",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Brown leather sofa being cleaned and conditioned",
+  "replaces": "/images/leather.svg",
+  "og_image": true
+ },
+ {
+  "slot": "leather-grain",
+  "page": "/services/leather-sofa-cleaning-london/",
+  "placement": "after the H2 \"Identifying your leather before anything touches it\"",
+  "section": "Identifying your leather before anything touches it",
+  "queries": [
+   "leather texture close up",
+   "leather grain"
+  ],
+  "query": "leather texture close up",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Close-up of leather grain, checked with a water-drop test before cleaning"
+ },
+ {
+  "slot": "leather-cracked",
+  "page": "/services/leather-sofa-cleaning-london/",
+  "placement": "after the H2 \"What we can fix, and what needs a restorer\"",
+  "section": "What we can fix, and what needs a restorer",
+  "queries": [
+   "cracked leather",
+   "worn leather sofa"
+  ],
+  "query": "cracked leather",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Cracked leather on a sofa, a repair job rather than a cleaning one"
+ },
+ {
+  "slot": "leather-care",
+  "page": "/services/leather-sofa-cleaning-london/",
+  "placement": "after the H2 \"Keeping leather in condition between visits\"",
+  "section": "Keeping leather in condition between visits",
+  "queries": [
+   "leather armchair living room",
+   "leather sofa interior"
+  ],
+  "query": "leather armchair living room",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Leather sofa kept out of direct sunlight and away from radiators"
+ },
+ {
+  "slot": "combined-hero",
+  "page": "/services/carpet-and-sofa-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "living room carpet sofa",
+   "living room rug sofa"
+  ],
+  "query": "living room carpet sofa",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Living room with a sofa, armchair and carpet cleaned in one visit",
+  "replaces": "/images/combined.svg",
+  "og_image": true
+ },
+ {
+  "slot": "combined-carpet",
+  "page": "/services/carpet-and-sofa-cleaning-london/",
+  "placement": "after the H2 \"How carpet & sofa combined works\"",
+  "section": "How carpet & sofa combined works",
+  "queries": [
+   "carpet cleaning",
+   "carpet cleaning machine"
+  ],
+  "query": "carpet cleaning",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Carpet being cleaned last, after the upholstery is finished"
+ },
+ {
+  "slot": "combined-stairs",
+  "page": "/services/carpet-and-sofa-cleaning-london/",
+  "placement": "after the H2 \"What a combined visit typically covers\"",
+  "section": "What a combined visit typically covers",
+  "queries": [
+   "carpeted stairs",
+   "stair carpet"
+  ],
+  "query": "carpeted stairs",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Carpeted stairs and landing, a common add-on to a combined visit"
+ },
+ {
+  "slot": "combined-fibres",
+  "page": "/services/carpet-and-sofa-cleaning-london/",
+  "placement": "after the H2 \"Carpet fibres and what changes\"",
+  "section": "Carpet fibres and what changes",
+  "queries": [
+   "carpet texture close up",
+   "wool rug close up"
+  ],
+  "query": "carpet texture close up",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Close-up of carpet pile; wool and synthetic fibres need different chemistry"
+ },
+ {
+  "slot": "sofabed-hero",
+  "page": "/services/sofa-bed-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "sofa bed",
+   "sofa bed open"
+  ],
+  "query": "sofa bed",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Sofa bed opened out with the fold-out mattress exposed for cleaning",
+  "replaces": "/images/sofabed.svg",
+  "og_image": true
+ },
+ {
+  "slot": "sofabed-mattress",
+  "page": "/services/sofa-bed-cleaning-london/",
+  "placement": "after the H2 \"What we most often find inside a sofa bed\"",
+  "section": "What we most often find inside a sofa bed",
+  "queries": [
+   "mattress close up",
+   "mattress"
+  ],
+  "query": "mattress close up",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Close-up of a mattress surface, where perspiration and dust mites collect"
+ },
+ {
+  "slot": "sofabed-guest-room",
+  "page": "/services/sofa-bed-cleaning-london/",
+  "placement": "after the H2 \"Sofa beds, guests and allergies\"",
+  "section": "Sofa beds, guests and allergies",
+  "queries": [
+   "guest room",
+   "small guest bedroom"
+  ],
+  "query": "guest room",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Guest room with a made-up sofa bed ready for visitors"
+ },
+ {
+  "slot": "sofabed-fresh",
+  "page": "/services/sofa-bed-cleaning-london/",
+  "placement": "after the H2 \"Keeping it fresh between cleans\"",
+  "section": "Keeping it fresh between cleans",
+  "queries": [
+   "fresh bed linen",
+   "white bedding"
+  ],
+  "query": "fresh bed linen",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Fresh washable bedding and mattress protector on a sofa bed"
+ },
+ {
+  "slot": "commercial-hero",
+  "page": "/services/commercial-upholstery-cleaning-london/",
+  "placement": "page hero",
+  "section": null,
+  "queries": [
+   "restaurant booth seating",
+   "restaurant banquette"
+  ],
+  "query": "restaurant booth seating",
+  "orientation": "landscape",
+  "width": 1600,
+  "hero": true,
+  "alt": "Restaurant banquette seating cleaned outside trading hours",
+  "replaces": "/images/commercial.svg",
+  "og_image": true
+ },
+ {
+  "slot": "commercial-office",
+  "page": "/services/commercial-upholstery-cleaning-london/",
+  "placement": "after the H2 \"What we clean, by sector\"",
+  "section": "What we clean, by sector",
+  "queries": [
+   "office chairs",
+   "office breakout area sofa"
+  ],
+  "query": "office chairs",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Office task chairs and breakout seating cleaned out of hours"
+ },
+ {
+  "slot": "commercial-hotel",
+  "page": "/services/commercial-upholstery-cleaning-london/",
+  "placement": "after the H2 \"Contract fabrics and why they behave differently\"",
+  "section": "Contract fabrics and why they behave differently",
+  "queries": [
+   "hotel lobby seating",
+   "hotel lounge chairs"
+  ],
+  "query": "hotel lobby seating",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Hotel lobby seating in hard-wearing contract fabric"
+ },
+ {
+  "slot": "commercial-pub",
+  "page": "/services/commercial-upholstery-cleaning-london/",
+  "placement": "after the H2 \"Odour control in pubs and restaurants\"",
+  "section": "Odour control in pubs and restaurants",
+  "queries": [
+   "pub interior",
+   "pub seating"
+  ],
+  "query": "pub interior",
+  "orientation": "landscape",
+  "width": 1000,
+  "hero": false,
+  "alt": "Pub booth seating, where beer and food residue build up in the fabric"
+ }
 ]

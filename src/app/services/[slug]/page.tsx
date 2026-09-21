@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getService, services } from '@/data/services';
 import { areas } from '@/data/areas';
-import { Photo, photoUrl } from '@/components/Photo';
+import { Photo, SectionPhoto, photoUrl } from '@/components/Photo';
 import { getImage } from '@/data/images';
 import { buildMetadata, faqSchema, serviceSchema } from '@/lib/seo';
+import { photoOg } from '@/components/Photo';
 import { site } from '@/lib/site';
 import { PageSchema } from '@/components/PageSchema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -48,7 +49,7 @@ export async function generateMetadata({
     title: service.title,
     description: service.metaDescription,
     path: `/services/${service.slug}/`,
-    image: getImage(service.image).src,
+    image: photoOg(`${service.image}-hero`) ?? getImage(service.image).og,
   });
 }
 
@@ -59,7 +60,9 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
 
   const image = getImage(service.image);
   // Slots in scripts/image-kit/images.json drop the "-london" suffix.
-  const slot = service.slug.replace(/-london$/, '');
+  // service.image ('steam', 'dry', …) doubles as the image kit's slot prefix.
+  const slot = `${service.image}-hero`;
+  const path = `/services/${service.slug}/`;
   const related = service.related.map((s) => getService(s)).filter(Boolean);
   const crumbs = [
     { name: 'Home', path: '/' },
@@ -145,6 +148,9 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             title={`How ${service.navLabel.toLowerCase()} works`}
             intro="Every stage below is done on every job. The order matters as much as the products."
           />
+          <div className="mx-auto max-w-4xl">
+            <SectionPhoto page={path} heading={`How ${service.navLabel.toLowerCase()} works`} />
+          </div>
           <ProcessSteps steps={service.method} />
         </div>
       </section>
@@ -155,6 +161,8 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           <div className="container-content py-12 sm:py-14">
             <div className="mx-auto max-w-4xl">
               <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{section.h2}</h2>
+
+              <SectionPhoto page={path} heading={section.h2} />
 
               {section.paragraphs && (
                 <div className="prose-body mt-4 max-w-prose">

@@ -26,7 +26,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     'Sofa and upholstery cleaning across Greater London. Fabric tested before any product is used and the price fixed before we start. 3-seater from £75.',
   path: '/',
-  image: '/images/hero.svg',
+  image: '/images/og/hero.jpg',
 });
 
 /** The six-stage method, shared across the homepage and the about page. */

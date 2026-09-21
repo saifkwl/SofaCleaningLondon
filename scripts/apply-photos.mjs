@@ -39,7 +39,7 @@ const kept = {};
 const skipped = [];
 
 for (const entry of manifest) {
-  const { slot, page, alt, hero, files } = entry;
+  const { slot, page, alt, hero, section, og_image: og, files } = entry;
   const problems = [];
 
   if (!slot) problems.push('no slot name');
@@ -73,6 +73,8 @@ for (const entry of manifest) {
     page,
     alt: alt.trim(),
     hero: Boolean(hero),
+    ...(section ? { section } : {}),
+    ...(og && existsSync(join(ROOT, 'public', String(og).replace(/^\//, ''))) ? { og } : {}),
     sources: sources.map(({ file, width, height }) => ({ file, width, height })),
   };
 
