@@ -88,7 +88,29 @@ export type Testimonial = {
   sourceUrl?: string;
 };
 
-export const testimonials: Testimonial[] = [];
+export const testimonials: Testimonial[] = [
+  {
+    name: 'Laura Patterson',
+    area: 'London',
+    date: '2024-07-02',
+    rating: 5,
+    body: 'Thanks so much, couch has came up like new, guys were so professional, will definitely be using your company again.',
+  },
+  {
+    name: 'Gemma Louise McNie',
+    area: 'London',
+    date: '2024-07-02',
+    rating: 5,
+    body: 'Very happy with the service, second time we have used you and the carpets have came up great — as my 4 year old said walking through the front door, it smelt "lovely and fresh". Thanks again and already recommend you to a lot of people.',
+  },
+  {
+    name: 'Aileen Beattie',
+    area: 'London',
+    date: '2024-07-02',
+    rating: 5,
+    body: 'So pleased with the results of our carpet & couch clean today, would highly recommend! The guys managed to come out earlier than planned and were so friendly, thanks again.',
+  },
+];
 
 /** tel: href */
 export const telHref = `tel:${PHONE_E164}`;

@@ -9,6 +9,7 @@ import { site, telHref, PHONE_DISPLAY } from '@/lib/site';
 import { PageSchema } from '@/components/PageSchema';
 import { LeadForm } from '@/components/LeadForm';
 import { TrustSignals } from '@/components/TrustSignals';
+import { BeforeAfterGallery } from '@/components/BeforeAfter';
 import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import {
@@ -173,6 +174,22 @@ export default function HomePage() {
       </section>
 
       <TrustSignals />
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Before / after                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <section className="defer-paint">
+        <div className="container-content py-14 sm:py-18">
+          <SectionHeading
+            eyebrow="Recent jobs"
+            title="Before and after"
+            intro="Real photos from real jobs — not stock images. Taken before we start and again once the piece is dry."
+          />
+          <div className="mt-10">
+            <BeforeAfterGallery limit={6} />
+          </div>
+        </div>
+      </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Services                                                          */}

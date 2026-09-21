@@ -9,6 +9,7 @@ import { Faq } from '@/components/Faq';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { CtaBand, SectionHeading } from '@/components/Ui';
 import { WhatsAppIcon } from '@/components/Icons';
+import { BeforeAfterGallery } from '@/components/BeforeAfter';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Reviews | Sofa Cleaning London',
@@ -132,6 +133,19 @@ export default function ReviewsPage() {
               </a>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="defer-paint">
+        <div className="container-content py-14 sm:py-18">
+          <SectionHeading
+            eyebrow="Recent jobs"
+            title="Before and after"
+            intro="Real photos from real jobs — not stock images. Taken before we start and again once the piece is dry."
+          />
+          <div className="mt-10">
+            <BeforeAfterGallery />
+          </div>
         </div>
       </section>
 
