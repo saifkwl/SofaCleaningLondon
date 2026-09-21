@@ -1,6 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/site';
 
+// A static export has no server to generate this on request, so it is written
+// out as a plain file at build time.
+export const dynamic = 'force-static';
+
 /**
  * robots.txt
  *

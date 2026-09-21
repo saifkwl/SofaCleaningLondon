@@ -142,11 +142,12 @@ do not add the page.
 ## Verifying
 
 ```bash
-npm run build && npm start -- -p 3210
+npm run build
+npx serve out -l 3210          # or: cd out && python3 -m http.server 3210
 
-npm run audit -- http://127.0.0.1:3210        # crawl/index checks
-npm run verify:leads                          # WhatsApp paths
-npm run screenshots                           # visual + overflow check
+SITE_ORIGIN=http://127.0.0.1:3210 npm run audit -- http://127.0.0.1:3210
+SITE_ORIGIN=http://127.0.0.1:3210 npm run verify:leads
+SITE_ORIGIN=http://127.0.0.1:3210 npm run screenshots
 npm run typecheck
 ```
 
@@ -158,6 +159,43 @@ internal inbound links.
 
 Current state: **0 failures, 0 warnings.** Service pages run 2,200–2,500 words,
 area pages 1,800–1,900, and every page has 26+ inbound internal links.
+
+---
+
+## Deploying to Cloudflare Pages
+
+The site is a static export, so there is no adapter and no server to run.
+Settings for the Cloudflare Pages setup screen:
+
+| Field | Value |
+|---|---|
+| Production branch | `claude/adoring-mendel-t8cy09` (rename to `main` first — see below) |
+| Framework preset | **Next.js (Static HTML Export)** |
+| Build command | `npm run build` |
+| Build output directory | `out` |
+| Root directory | leave blank |
+| Environment variables | none needed |
+
+Set **Node version** to 20 or 22 if the build fails on an older default — add an
+environment variable `NODE_VERSION` = `22`.
+
+`public/_headers` is copied into `out/` and read by Cloudflare Pages natively;
+it carries the security and cache headers that a static export cannot set in
+`next.config.mjs`.
+
+### Rename the branch to `main` first
+
+Right now the only branch in the repo is `claude/adoring-mendel-t8cy09`, which
+is why the production branch dropdown looks near-empty. A long-lived site should
+deploy from `main`:
+
+```bash
+git branch -m claude/adoring-mendel-t8cy09 main
+git push -u origin main
+git push origin --delete claude/adoring-mendel-t8cy09
+```
+
+Then pick `main` as the production branch.
 
 ---
 
@@ -180,9 +218,11 @@ partial early coverage is normal.
 
 ## Stack
 
-Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 3.
+Next.js 15 (App Router, `output: 'export'`) · React 19 · TypeScript (strict) ·
+Tailwind CSS 3.
 
-Every page is statically pre-rendered. Shared JavaScript is ~102 KB; only
+`npm run build` writes a folder of plain HTML to `out/` — no Node server, no
+hosting adapter. Every page is statically pre-rendered. Shared JavaScript is ~102 KB; only
 `/get-a-quote/` adds meaningfully to it (2.5 KB for the calculator). The FAQ
 accordions and the mobile menu use native `<details>`, so their content is in
 the served HTML and readable without JavaScript.
