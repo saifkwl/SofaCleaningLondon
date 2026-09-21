@@ -131,6 +131,33 @@ const robots = await (await fetch(`${origin}/robots.txt`)).text();
 if (/^Disallow: \/$/m.test(robots)) problem(fail, '/robots.txt', 'blanket Disallow: / would deindex the site');
 if (!robots.includes('sitemap.xml')) problem(fail, '/robots.txt', 'does not reference sitemap.xml');
 
+// Every Disallow rule is checked against every indexable URL. A wildcard rule
+// that accidentally matches a real page is the single most effective way to
+// deindex a site, and it is invisible until traffic disappears.
+const rules = [...robots.matchAll(/^Disallow:\s*(\S+)\s*$/gm)].map((m) => m[1]);
+const matches = (rule, path) => {
+  const re = new RegExp(
+    '^' +
+      rule
+        .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*')
+        .replace(/\\\$$/, '$'),
+  );
+  return re.test(path);
+};
+for (const rule of rules) {
+  for (const path of pages.keys()) {
+    if (matches(rule, path)) problem(fail, path, `blocked by robots.txt rule "${rule}"`);
+  }
+  if (matches(rule, '/robots.txt')) problem(fail, '/robots.txt', `rule "${rule}" blocks robots.txt itself`);
+  if (matches(rule, '/sitemap.xml')) problem(fail, '/sitemap.xml', `rule "${rule}" blocks the sitemap`);
+}
+
+// And the RSC payloads should be blocked, since they mirror page text.
+const payload = '/services/steam-sofa-cleaning-london/index.txt';
+if (!rules.some((r) => matches(r, payload)))
+  problem(warn, payload, 'RSC payload is crawlable — mirrors page text in a machine format');
+
 console.log('Word counts');
 for (const [path, p] of pages) {
   if (p.status === 200) console.log(`  ${String(p.words).padStart(5)}  ${path}`);
