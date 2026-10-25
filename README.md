@@ -288,3 +288,8 @@ the served HTML and readable without JavaScript.
 | `src/data/` | Services, areas, pricing, image registry |
 | `src/components/` | UI, forms, schema emitters |
 | `scripts/` | Illustrations, icons, photos, audit, tests |
+
+## IndexNow (Bing, Yandex)
+
+After every deploy that adds or changes pages, run `npm run indexnow` (whole sitemap) or `npm run indexnow -- /changed-page/` (only those pages) from the repo root.
+The key file `/51e7f53d0adf6534f326d4343c9fd54a.txt` must stay live; 200 or 202 means the URLs were accepted.

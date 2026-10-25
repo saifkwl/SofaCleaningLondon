@@ -13,7 +13,8 @@
     "verify:leads": "node scripts/verify-leads.mjs",
     "screenshots": "node scripts/screenshots.mjs",
     "photos:apply": "node scripts/apply-photos.mjs",
-    "social": "node scripts/build-social-cards.mjs"
+    "social": "node scripts/build-social-cards.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "next": "15.5.4",
